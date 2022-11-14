@@ -1,9 +1,12 @@
 #!/bin/bash
+# Script for configuring SPIRV-Tools C++ dependency from scratch. Use this to
+# update the dependency to a newer version.
 PACKAGE_DIR=$(pwd)
 
-# 'build' directory doesn't alias '.build' from SwiftPM. It is also recognized
-# by the '.gitignore', so you won't push unwanted files to the Git repository.
-mkdir build && cd build
+# 'build' directory aliases '.build' from SwiftPM. It is recognized by the
+# '.gitignore', so you won't push unwanted files to the Git repository.
+mkdir .build
+cd .build
 
 # Download online repositories.
 git clone "https://github.com/KhronosGroup/SPIRV-Tools.git" "spirv-tools"
@@ -11,7 +14,8 @@ cd spirv-tools
 git clone "https://github.com/KhronosGroup/SPIRV-Headers.git" "external/spirv-headers"
 
 # Prepare compilation of SPIRV-Tools.
-mkdir build && cd build
+mkdir build
+cd build
 cmake ..
 if [[ $? != 0 ]]; then
   exit $?
@@ -25,7 +29,7 @@ fi
 
 # Prepare destinations for copying.
 cd $PACKAGE_DIR
-SRC="build/spirv-tools"
+SRC=".build/spirv-tools"
 DEST="Sources/SPIRVTools"
 rm -rf $DEST
 mkdir $DEST
