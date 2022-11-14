@@ -1,4 +1,4 @@
 module SPIRVTools {
-    header "spirv-tools/libspirv.h"
-    export *
+  header "spirv-tools/libspirv.h"
+  export *
 }

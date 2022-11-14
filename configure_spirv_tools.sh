@@ -39,7 +39,7 @@ mkdir "${DEST}/include/preprocessed"
 # Copy files into "Sources/SPIRVTools".
 cp -r "${SRC}/source" "${DEST}/source"
 cp -r "${SRC}/external/spirv-headers/include/spirv" "${DEST}/include/spirv"
-cp -r "${SRC}/spirv-tools" "${DEST}/include/spirv-tools"
+cp -r "${SRC}/include/spirv-tools" "${DEST}/include/spirv-tools"
 
 # Copy preprocessed files from build folder.
 FILES_DIR="${SRC}/build"
@@ -48,22 +48,21 @@ PREPROCESSED_DIR="${DEST}/include/preprocessed"
 cd $FILES_DIR
 INC_FILES=$(find . -name \*.inc)
 cd $PACKAGE_DIR
-for file in INC_FILES; do
+for file in $INC_FILES; do
   cp "${FILES_DIR}/${file}" "${PREPROCESSED_DIR}/${file}"
 done
 
 cd $FILES_DIR
 H_FILES=$(find . -name \*.h)
 cd $PACKAGE_DIR
-for file in H_FILES; do
+for file in $H_FILES; do
   cp "${FILES_DIR}/${file}" "${PREPROCESSED_DIR}/${file}"
 done
 
 # Create modulemap.
-MODULEMAP_SRC='
-module SPIRVTools {
+MODULEMAP_SRC='module SPIRVTools {
   header "spirv-tools/libspirv.h"
   export *
-}
-'
-echo $MODULEMAP_SRC > "${DEST}/include/module.modulemap"
+}'
+
+echo "${MODULEMAP_SRC}" > "${DEST}/include/module.modulemap"
