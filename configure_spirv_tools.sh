@@ -64,5 +64,4 @@ MODULEMAP_SRC='module SPIRVTools {
   header "spirv-tools/libspirv.h"
   export *
 }'
-
 echo "${MODULEMAP_SRC}" > "${DEST}/include/module.modulemap"
