@@ -20,7 +20,7 @@ xcrun metallib vecAdd_msl.air -o vecAdd_msl.metallib
 llvm-dis vecAdd_msl.air -o vecAdd_msl.air.ll
 ```
 
-To disassemble the `.metallib`, the process is more complex. Use the [MetalLibraryExplorer](https://yuao.me/MetalLibraryExplorer/) web app to disassemble it. Download the zip file and run the following commands:
+To disassemble the `.metallib`, the process is more complex. Use the [MetalLibraryExplorer](https://yuao.me/MetalLibraryExplorer) web app to disassemble it. Download the zip file and run the following commands:
 
 ```
 mv vecAdd.air vecAdd_msl.metallib.air

@@ -4,19 +4,19 @@ target datalayout = "e-p:64:64:64-i1:8:8-i8:8:8-i16:16:16-i32:32:32-i64:64:64-f3
 target triple = "air64-apple-macosx13.0.0"
 
 ; Function Attrs: norecurse nounwind
-define void @vecAdd(float addrspace(1)* noalias nocapture readonly %0, float addrspace(1)* noalias nocapture readonly %1, float addrspace(1)* noalias nocapture %2, i32 addrspace(2)* noalias nocapture readonly %3) local_unnamed_addr #0 {
+define void @vecAdd(<2 x float> addrspace(1)* noalias nocapture readonly %0, <2 x float> addrspace(1)* noalias nocapture readonly %1, <2 x float> addrspace(1)* noalias nocapture %2, i32 addrspace(2)* noalias nocapture readonly %3) local_unnamed_addr #0 {
   %5 = load i32, i32 addrspace(2)* %3, align 4, !tbaa !22
   %6 = icmp ugt i32 %5, 5
   br i1 %6, label %7, label %14
 
 7:                                                ; preds = %4
-  %8 = getelementptr inbounds float, float addrspace(1)* %2, i64 5
-  %9 = getelementptr inbounds float, float addrspace(1)* %1, i64 5
-  %10 = getelementptr inbounds float, float addrspace(1)* %0, i64 5
-  %11 = load float, float addrspace(1)* %10, align 4, !tbaa !26
-  %12 = load float, float addrspace(1)* %9, align 4, !tbaa !26
-  %13 = fadd fast float %12, %11
-  store float %13, float addrspace(1)* %8, align 4, !tbaa !26
+  %8 = getelementptr inbounds <2 x float>, <2 x float> addrspace(1)* %2, i64 5
+  %9 = getelementptr inbounds <2 x float>, <2 x float> addrspace(1)* %1, i64 5
+  %10 = getelementptr inbounds <2 x float>, <2 x float> addrspace(1)* %0, i64 5
+  %11 = load <2 x float>, <2 x float> addrspace(1)* %10, align 8, !tbaa !26
+  %12 = load <2 x float>, <2 x float> addrspace(1)* %9, align 8, !tbaa !26
+  %13 = fadd fast <2 x float> %12, %11
+  store <2 x float> %13, <2 x float> addrspace(1)* %8, align 8, !tbaa !26
   br label %14
 
 14:                                               ; preds = %7, %4
@@ -41,12 +41,12 @@ attributes #0 = { norecurse nounwind "correctly-rounded-divide-sqrt-fp-math"="fa
 !5 = !{i32 7, !"air.max_textures", i32 128}
 !6 = !{i32 7, !"air.max_read_write_textures", i32 8}
 !7 = !{i32 7, !"air.max_samplers", i32 16}
-!8 = !{void (float addrspace(1)*, float addrspace(1)*, float addrspace(1)*, i32 addrspace(2)*)* @vecAdd, !9, !10}
+!8 = !{void (<2 x float> addrspace(1)*, <2 x float> addrspace(1)*, <2 x float> addrspace(1)*, i32 addrspace(2)*)* @vecAdd, !9, !10}
 !9 = !{}
 !10 = !{!11, !12, !13, !14}
-!11 = !{i32 0, !"air.buffer", !"air.location_index", i32 0, i32 1, !"air.read_write", !"air.address_space", i32 1, !"air.arg_type_size", i32 4, !"air.arg_type_align_size", i32 4, !"air.arg_type_name", !"float", !"air.arg_name", !"a"}
-!12 = !{i32 1, !"air.buffer", !"air.location_index", i32 1, i32 1, !"air.read_write", !"air.address_space", i32 1, !"air.arg_type_size", i32 4, !"air.arg_type_align_size", i32 4, !"air.arg_type_name", !"float", !"air.arg_name", !"b"}
-!13 = !{i32 2, !"air.buffer", !"air.location_index", i32 2, i32 1, !"air.read_write", !"air.address_space", i32 1, !"air.arg_type_size", i32 4, !"air.arg_type_align_size", i32 4, !"air.arg_type_name", !"float", !"air.arg_name", !"c"}
+!11 = !{i32 0, !"air.buffer", !"air.location_index", i32 0, i32 1, !"air.read_write", !"air.address_space", i32 1, !"air.arg_type_size", i32 8, !"air.arg_type_align_size", i32 8, !"air.arg_type_name", !"float2", !"air.arg_name", !"a"}
+!12 = !{i32 1, !"air.buffer", !"air.location_index", i32 1, i32 1, !"air.read_write", !"air.address_space", i32 1, !"air.arg_type_size", i32 8, !"air.arg_type_align_size", i32 8, !"air.arg_type_name", !"float2", !"air.arg_name", !"b"}
+!13 = !{i32 2, !"air.buffer", !"air.location_index", i32 2, i32 1, !"air.read_write", !"air.address_space", i32 1, !"air.arg_type_size", i32 8, !"air.arg_type_align_size", i32 8, !"air.arg_type_name", !"float2", !"air.arg_name", !"c"}
 !14 = !{i32 3, !"air.buffer", !"air.location_index", i32 3, i32 1, !"air.read", !"air.address_space", i32 2, !"air.arg_type_size", i32 4, !"air.arg_type_align_size", i32 4, !"air.arg_type_name", !"uint", !"air.arg_name", !"n"}
 !15 = !{!"air.compile.denorms_disable"}
 !16 = !{!"air.compile.fast_math_enable"}
@@ -54,10 +54,9 @@ attributes #0 = { norecurse nounwind "correctly-rounded-divide-sqrt-fp-math"="fa
 !18 = !{!"Apple metal version 31001.660 (metalfe-31001.660.6)"}
 !19 = !{i32 2, i32 5, i32 0}
 !20 = !{!"Metal", i32 3, i32 0, i32 0}
-!21 = !{!"/Users/philipturner/Desktop/CompileCL/vecAdd_msl.metal"}
+!21 = !{!"/Users/philipturner/Documents/GROMACS/air-v/Tests/AIRVTests/Shaders/vecAdd_msl.metal"}
 !22 = !{!23, !23, i64 0}
 !23 = !{!"int", !24, i64 0}
 !24 = !{!"omnipotent char", !25, i64 0}
 !25 = !{!"Simple C++ TBAA"}
-!26 = !{!27, !27, i64 0}
-!27 = !{!"float", !24, i64 0}
+!26 = !{!24, !24, i64 0}

@@ -1,6 +1,6 @@
-__kernel void vecAdd(__global float * restrict a,
-                     __global float * restrict b,
-                     __global float * restrict c,
+__kernel void vecAdd(__global float2 * restrict a,
+                     __global float2 * restrict b,
+                     __global float2 * restrict c,
                      __constant unsigned int * restrict n)
 {
   // Get our global thread ID

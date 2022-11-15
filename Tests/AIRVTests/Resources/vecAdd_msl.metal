@@ -1,6 +1,6 @@
-kernel void vecAdd(device float *a,
-                   device float *b,
-                   device float *c,
+kernel void vecAdd(device float2 *a,
+                   device float2 *b,
+                   device float2 *c,
                    constant uint *n)
 {
   // Get our global thread ID
