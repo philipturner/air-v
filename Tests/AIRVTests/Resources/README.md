@@ -7,6 +7,7 @@ How to compile and disassemble the OpenCL shader:
 ```
 # Must have 'spirv-tools' installed on your system.
 clang -c -target spir64 -O0 -emit-llvm vecAdd_clc.cl -o vecAdd_clc.bc
+llvm-dis vecAdd_clc.bc -o vecAdd_clc.bc.ll
 llvm-spirv vecAdd_clc.bc -o vecAdd_clc.spv
 spirv-dis vecAdd_clc.spv -o vecAdd_clc.spv.ll
 ```
@@ -25,5 +26,5 @@ To disassemble the `.metallib`, the process is more complex. Use the [MetalLibra
 ```
 mv vecAdd.air vecAdd_msl.metallib.air
 mv vecAdd.ll vecAdd_msl.metallib.ll
-llvm-dis vecAdd_msl.metallib.air
+llvm-dis vecAdd_msl.metallib.air -o vecAdd_msl.metallib.air.ll
 ```

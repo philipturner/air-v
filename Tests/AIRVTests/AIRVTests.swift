@@ -50,4 +50,13 @@ final class AIRVTests: XCTestCase {
     let result = memcmp(bufferC.contents(), outputC, bufferLength)
     XCTAssertEqual(result, 0, "Shader produced unexpected outputs.")
   }
+  
+  func testBitcodeFiles() {
+    let clcPath = fetchPath(forResource: "vecAdd_clc", ofType: "bc")
+    let mslPath = fetchPath(forResource: "vecAdd_msl", ofType: "air")
+    let clcData = FileManager.default.contents(atPath: clcPath)!
+    let mslData = FileManager.default.contents(atPath: mslPath)!
+    readBitcode(clcData, isMetal: false)
+    readBitcode(mslData, isMetal: true)
+  }
 }
